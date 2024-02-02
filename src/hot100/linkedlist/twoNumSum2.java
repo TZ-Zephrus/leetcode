@@ -14,13 +14,13 @@ public class twoNumSum2 {
             if (l1 == null && l2 != null) {
                 int number = (l2.val + remainder) % 10;
                 node.next = new ListNode(number);
-                remainder = (node.next.val + remainder) / 10;
+                remainder = (l2.val + remainder) / 10;
                 l2 = l2.next;
                 node = node.next;
             } else if (l2 == null && l1 != null) {
                 int number = (l1.val + remainder) % 10;
                 node.next = new ListNode(number);
-                remainder = (node.next.val + remainder) / 10;
+                remainder = (l1.val + remainder) / 10;
                 l1 = l1.next;
                 node = node.next;
             } else if (l1 == null && l2 == null) {

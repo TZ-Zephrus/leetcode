@@ -1921,8 +1921,56 @@ right往右走，直到当前窗口内元素满足要求；
 
 ### 142 环形链表Ⅱ
 
-## 21 合并两个有序链表
+### 21 合并两个有序链表
 
 <img src="D:\wangtianze7\Desktop\jd\img\image-20240201155950419.png" alt="image-20240201155950419" style="zoom:50%;" />
 
 递归写法
+
+### 24 两两交换链表中的节点
+
+### 25 K个一组翻转链表
+
+<img src="img/1706863047798.png" alt="1706863047798" style="zoom:50%;" />
+
+**方法一：**对于每段子链表，都创建一个头和尾，用于连接每段子链表
+
+<img src="img/e26dc958ea7405b2bcb35c0d90d1616.jpg" alt="e26dc958ea7405b2bcb35c0d90d1616" style="zoom:50%;" />
+
+**方法二：**用栈
+
+```Java
+class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        Deque<ListNode> stack = new ArrayDeque<ListNode>();
+        ListNode dummy = new ListNode(0);
+        ListNode p = dummy;
+        while (true) {
+            int count = 0;
+            ListNode tmp = head;
+            while (tmp != null && count < k) {
+                stack.add(tmp);
+                tmp = tmp.next;
+                count++;
+            }
+            if (count != k) {
+                p.next = head;
+                break;
+            }
+            while (!stack.isEmpty()){
+                p.next = stack.pollLast();
+                p = p.next;
+            }
+            p.next = tmp;
+            head = tmp;
+        }
+        return dummy.next;
+    }
+}
+```
+
+
+
+### 138 随机链表的复制
+
+![image-20240202173956958](img/image-20240202173956958.png)
