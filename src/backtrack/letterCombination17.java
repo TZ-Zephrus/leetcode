@@ -15,7 +15,6 @@ public class letterCombination17 {
         String[] table = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
         int length = digits.length();
         if (digits.isEmpty()) {
-            result.add("");
             return result;
         }
         backtrack(table, digits, 0);

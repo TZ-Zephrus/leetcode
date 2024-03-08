@@ -9,18 +9,18 @@ import hot100.matrix.*;
 import hot100.linkedlist.*;
 public class test {
     public static void main(String[] args) {
-        reverseNodesInKGroup25 reverseNodesInKGroup25 = new reverseNodesInKGroup25();
-        ListNode node11 = new ListNode(1);
-        ListNode node12 = new ListNode(2);
-        ListNode node13 = new ListNode(3);
-        ListNode node14 = new ListNode(4);
-        ListNode node15 = new ListNode(5);
+        sortList148 sortList148 = new sortList148();
+        ListNode node11 = new ListNode(11);
+        ListNode node12 = new ListNode(22);
+        ListNode node13 = new ListNode(13);
+        ListNode node14 = new ListNode(34);
+//        ListNode node15 = new ListNode(15);
 //        ListNode node16 = new ListNode(9);
 //        ListNode node17 = new ListNode(9);
         node11.next = node12;
         node12.next = node13;
         node13.next = node14;
-        node14.next = node15;
+//        node14.next = node15;
 //        node15.next = node16;
 //        node16.next = node17;
 //        ListNode node21 = new ListNode(9);
@@ -30,7 +30,7 @@ public class test {
 //        node21.next = node22;
 //        node22.next = node23;
 //        node23.next = node24;
-        ListNode node = reverseNodesInKGroup25.reverseKGroup(node11, 2);
+        ListNode node = sortList148.sortList3(node11);
         System.out.println(node);
     }
 }
