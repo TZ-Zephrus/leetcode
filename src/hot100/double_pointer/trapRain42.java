@@ -1,5 +1,8 @@
 package hot100.double_pointer;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 public class trapRain42 {
     public int trap(int[] height) {
         int i = 0;
@@ -33,5 +36,23 @@ public class trapRain42 {
             i--;
         }
         return result;
+    }
+
+
+    // 单调栈法
+    public int trap2(int[] height) {
+        Deque<Integer> deque = new ArrayDeque<>();
+        int sum = 0;
+        for (int i = 0; i < height.length; i++) {
+            while (!deque.isEmpty() && height[deque.peek()] < height[i]) {
+                Integer index = deque.pop();
+                if (!deque.isEmpty()) {
+                    int temp = (Math.min(height[i], height[deque.peek()]) - height[index]) * (i - deque.peek() - 1);
+                    sum = sum + temp;
+                }
+            }
+            deque.push(i);
+        }
+        return sum;
     }
 }
