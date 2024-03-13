@@ -3,7 +3,7 @@ package hot100.stack;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-public class DaylyTemprature739 {
+public class DailyTemprature739 {
     // 用单调栈
     public int[] dailyTemperatures(int[] temperatures) {
         Deque<Integer> deque = new ArrayDeque<>();
