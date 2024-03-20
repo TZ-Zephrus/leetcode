@@ -2347,6 +2347,10 @@ https://leetcode.cn/problems/path-sum-iii/solutions/596361/dui-qian-zhui-he-jie-
 
 ![image-20240313122844831](img/image-20240313122844831.png)
 
+
+
+## 堆
+
 ### 215 数组中的第K个最大元素
 
 ![image-20240313144011994](img/image-20240313144011994.png)
@@ -2374,9 +2378,238 @@ https://leetcode.cn/problems/path-sum-iii/solutions/596361/dui-qian-zhui-he-jie-
 
 3. 堆排序，小顶堆
 
+   ```Java
+   public class MinHeap {
+       public static void main(String[] args) {
+           int[] nums = {4, 2, 8, 5, 3, 2};
+           int n = nums.length;
+           
+           // 构建小顶堆
+           buildHeap(nums, n);
+           
+           // 输出排序后的数组
+           for (int i = 0; i < n; i++) {
+               System.out.println(nums[i]);
+           }
+           
+           // 在Windows环境下使用pause来暂停程序，在其他操作系统中可能需要移除或替换
+           // System.out.println("Press any key to continue...");
+           // try {
+           //     System.in.read();
+           // } catch (IOException e) {
+           //     e.printStackTrace();
+           // }
+       }
+       
+       // 交换数组中的两个元素
+       public static void swap(int[] a, int i, int m) {
+           int temp = a[i];
+           a[i] = a[m];
+           a[m] = temp;
+       }
+       
+       // 堆化函数，确保从index开始的子树满足小顶堆的性质
+       public static void heapify(int[] a, int n, int i) {
+           int min = i;
+           while (true) {
+               int leftChildIdx = 2 * i + 1;
+               int rightChildIdx = 2 * i + 2;
+               
+               if (leftChildIdx < n && a[leftChildIdx] < a[min]) {
+                   min = leftChildIdx;
+               }
+               if (rightChildIdx < n && a[rightChildIdx] < a[min]) {
+                   min = rightChildIdx;
+               }
+               
+               if (min == i) break;
+               
+               swap(a, i, min);
+               i = min;
+           }
+       }
+       
+       // 建立堆的函数，对数组进行n个元素的堆排序，构建小顶堆
+       public static void buildHeap(int[] nums, int n) {
+           for (int i = n / 2 - 1; i >= 0; i--) {
+               heapify(nums, n, i);
+           }
+       }
+       
+       // 堆排序函数，对数组进行堆排序
+       public static void heapsort(int[] nums, int n) {
+           buildHeap(nums, n);
+           for (int i = n - 1; i > 0; i--) {
+               swap(nums, 0, i);
+               heapify(nums, i, 0);
+           }
+       }
+   }
+   ```
+
+   
+
 ### 347 前K个高频元素
 
 ![image-20240313144947182](img/image-20240313144947182.png)
 
+### 295 数据流的中位数
+
+![image-20240314124536505](img/image-20240314124536505.png)
+
+需要两个堆，大顶堆用来记录小半部分的数据，小顶堆用来记录大半部分的数据
+
+**关键：**数据大小情况只会有：两者size相同，或左边size大于右边，以这个理念进行调整
+
+## 动态规划
+
+**步骤：**
+
+1. 确定dp数组（dp table）以及下标的含义
+2. 确定递推公式
+3. dp数组如何初始化
+4. 确定遍历顺序
+5. 举例推导dp数组
+
+**如果求组合数就是外层for循环遍历物品，内层for遍历背包**。
+
+**如果求排列数就是外层for遍历背包，内层for循环遍历物品**。
+
+### 70 爬楼梯
+
+### 118 杨辉三角
+
+![image-20240314172128268](img/image-20240314172128268.png)
+
+### 198 打家劫舍
+
+![image-20240314195114692](img/image-20240314195114692.png)
+
+1. 确定dp数组（dp table）以及下标的含义
+
+   dp\[i][j]表示j=0没偷，j=1偷了
+
+2. 确定递推公式
+
+   dp\[i][1] = dp\[i-1][0] + nums\[i];            i偷，i-1必没偷
+
+   dp\[i][0] = max(dp\[i-1][1], dp\[i-1][0]);  i没偷，i-1可能没偷也可能偷
+
+   
+
+   也可以写成：dp[i] = max(dp[i - 2] + nums[i], dp[i - 1]);
+
+   如果偷第i房间，那么dp[i] = dp[i - 2] + nums[i] ，即：第i-1房一定是不考虑的，找出 下标i-2（包括i-2）以内的房屋，最多可以偷窃的金额为dp[i-2] 加上第i房间偷到的钱。
+
+   如果不偷第i房间，那么dp[i] = dp[i - 1]，即考 虑i-1房，（**注意这里是考虑，并不是一定要偷i-1房，这是很多同学容易混淆的点**）
+
+3. dp数组如何初始化
+
+4. 确定遍历顺序
+
+5. 举例推导dp数组
+
+### 279 完全平方数
+
+![image-20240314203451770](img/image-20240314203451770.png)
+
+完全背包问题
+
+### 322 零钱兑换
+
+![image-20240314224943409](img/image-20240314224943409.png)
+
+完全背包问题
+
+需要注意这里如果无法凑成总金额时，该如何处理.                
+
+### 139 单词拆分  
+
+![image-20240318110954086](img/image-20240318110954086.png)
+
+实际上是排列数的问题
+
+**下标含义：**dp[j] : 字符串长度为i的话，dp[j]为true，表示可以拆分为一个或多个在字典中出现的单词。
+
+**递推公式：**dp[j] = dp[j-wordDict[i].length]为true && [j-wordDict[i].length,j] 这个区间的子串出现在字典里在字典中
+
+**初始化：**dp[0] = true, 否则后序全都是false了
+
+**遍历顺序：**完全背包，需要排列
+
+### 300 最长递增子序列
+
+![image-20240318141109082](img/image-20240318141109082.png)
+
+**下标含义：**dp[i] : 以第i个元素结尾，最长递增子序列长度为dp\[i]
+
+**递推公式：**
+
+If (nums[i] > nums[j])
+
+dp[i] = Math.max(dp[i], dp[j] + 1)
+
+**初始化：**dp[0] = true, 否则后序全都是false了
 
 
+
+
+
+### 152 乘积最大子数组
+
+![image-20240318144307736](img/image-20240318144307736.png)
+
+是子数组
+
+需要分正负讨论，因为当前元素的局部最优情况未必是由前一个元素的局部最优情况推导而出，因此需要同时记录是前一个元素最大的情况和最小的情况。当前元素为负时，则乘前一个元素最小情况；为正时，则乘前一个元素最大情况
+
+**下标含义：**dpmax[i] : 以第i个元素结尾，乘积最大；dpmin[i]：以第i个元素结尾，乘积最小
+
+**递推公式：**
+
+max(dp[i], nums[i] * dpmax[i-1], numi[i] * dpmin(i-1))
+
+min(dp[i], nums[i] * dpmax[i-1], numi[i] * dpmin(i-1))
+
+
+
+### 416 分割等和子集
+
+![image-20240318162550636](img/image-20240318162550636.png)
+
+转换成背包问题，容量是sum/2
+
+
+
+### 32 最长有效括号
+
+![image-20240318184949488](img/image-20240318184949488.png)
+
+
+
+
+
+### 62 不同路径
+
+![image-20240319143516150](img/image-20240319143516150.png)
+
+### 64 最小路径和
+
+![image-20240319150812313](img/image-20240319150812313.png)
+
+
+
+## 5 最长回文子串
+
+![image-20240319155301915](img/image-20240319155301915.png)
+
+需要用二维动态规划
+
+dp\[i][j]表示从i到j的字符串
+
+dp\[i][j] = dp\[i+1][j-1] & s[i]==s[j]
+
+**有两个要注意的点！！！**
+
+1. 当串长度小于4时，只需要判断两端元素是否相等
+2. 必须先遍历行再遍历列。因为递推公式为dp\[i][j] = dp\[i+1][j-1]，获取i前需要先获取i+1

@@ -35,7 +35,7 @@ public class LRUcache146 {
     class LRUCache2 {
         private int capacity;
         private int size;
-        private DLinkedNode head;
+//        private DLinkedNode head;
 //        private DLinkedNode tail;
         final private DLinkedNode dummyHead = new DLinkedNode();
         final private DLinkedNode dummyTail = new DLinkedNode();
