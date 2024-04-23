@@ -30,4 +30,22 @@ public class shootBalloon452 {
         return count;
 
     }
+
+    public int findMinArrowShots2(int[][] points) {
+        Arrays.sort(points, (o1,o2)->o1[0]-o2[0]);
+        int min = points[0][1];
+        int num = 0;
+        for(int i = 1; i < points.length; i++) {
+            if (points[i][0] > min) {
+                min = points[i][1];
+                num++;
+            } else {
+                if (points[i][1] < min) {
+                    min = points[i][1];
+                }
+            }
+        }
+        num++;
+        return num;
+    }
 }

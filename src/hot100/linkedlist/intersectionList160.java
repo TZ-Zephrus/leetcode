@@ -38,4 +38,24 @@ public class intersectionList160 {
         }
         return null;
     }
+
+    public ListNode getIntersectionNode2(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) {
+            return null;
+        }
+        ListNode pA = headA, pB = headB;
+        while (pA != pB) {
+            if (pA != null) {
+                pA = pA.next;
+            } else {
+                pA = headB;
+            }
+            if (pB != null) {
+                pB = pB.next;
+            } else {
+                pB = headA;
+            }
+        }
+        return pA;
+    }
 }

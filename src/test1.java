@@ -24,9 +24,50 @@ import hot100.array.longestSeq128;
 
 public class test1 {
     public static void main(String[] args) {
-        longestSeq128 longestSeq128 = new longestSeq128();
-        int[] arr = {1,2,0,1};
-        int i = longestSeq128.longestConsecutive(arr);
-        System.out.println(i);
+        int[] array = {1,2,3,4}; // 示例数组
+        int result = maximizeZeros(array);
+        System.out.println("最大末尾0的数量：" + result);
+    }
+
+    public static int maximizeZeros(int[] array) {
+        int maxTrailingZeros = 0;
+        int indexToIncrement = -1;
+        int currentTrailingZeros;
+
+        // 遍历数组，找到末尾0最多的情况
+        for (int i = 0; i < array.length; i++) {
+            currentTrailingZeros = countTrailingZeros(array[i] + 1);
+            if (currentTrailingZeros > maxTrailingZeros) {
+                maxTrailingZeros = currentTrailingZeros;
+                indexToIncrement = i;
+            }
+        }
+
+        // 如果找到可以增加的元素，执行增加操作
+        if (indexToIncrement != -1) {
+            array[indexToIncrement]++;
+        }
+
+        // 计算操作后的数组乘积的末尾0的数量
+        return countTrailingZerosOfProduct(array);
+    }
+
+    // 计算一个数的二进制表示中末尾0的数量
+    private static int countTrailingZeros(int number) {
+        int trailingZeros = 0;
+        while (number % 2 == 0) {
+            trailingZeros++;
+            number /= 2;
+        }
+        return trailingZeros;
+    }
+
+    // 计算数组所有元素乘积的二进制表示中末尾0的数量
+    private static int countTrailingZerosOfProduct(int[] array) {
+        int totalTrailingZeros = 0;
+        for (int value : array) {
+            totalTrailingZeros += countTrailingZeros(value);
+        }
+        return totalTrailingZeros;
     }
 }
